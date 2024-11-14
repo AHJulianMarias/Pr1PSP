@@ -1,0 +1,23 @@
+¿Qué ventajas y desventajas tiene la ejecución de programas de manera síncrona versus asíncrona?
+Ventajas de la sincronia:
+    Mas sencilla de codificar.
+    Mas sencilla de debuggear.
+Desventajas de la sincronia:
+    Bloquea todo el programa hasta que termine la parte síncrona.
+
+Ventajas de la asincronía:
+    No bloquea el programa.
+Desventajas de la asincronía:
+    Mas dificil de codificar.
+    Mas dificil de debuggear.
+
+¿Por qué es importante manejar las excepciones al trabajar con procesos?
+Porque si trabajas sin manejar excepciones lo primero es que el programa se puede parar en algun momento no deseado, con las excepciones tu puedes decidir si sigue o no ejecutandose el programa,
+A mayores con procesos podriamos tener los problemas de que no encuentre el proceso o intentando terminar ese proceso, que no tengamos permisos, sobre todo la importancia de las 
+excepciones es para poder entender cual es el fallo de nuestro programa.
+
+¿Qué tipo de problemas se pueden presentar al comunicarse entre procesos? ¿Cómo los has solucionado?
+El único problema que he tenido, aparte de que he estado trabajando desde windows utilizando codigo perteneciente a unix, ha sido el momento de pasar el archivo, ya que segun he visto
+solo se pueden pasar strings, si se pudieran pasar arrays o integers sería mas sencillo, la forma de solucionarlo ha sido creando un string con la informacion necesaria y enviando ese string,
+otra manera que se me ha ocurrido es pasarlo como un json parseado a string, en el 'otro lado' de la tuberia lo unico que habria que hacer es parsear ese string a json y buscar segun clave,
+al final sigue siendo lo mismo, enviar como string y recibir en el 'otro lado' de la tuberia.
