@@ -4,6 +4,21 @@ import json
 
 # Ejecutar en https://www.online-python.com/
 
+with open("textfile.txt", "r") as txtRead:
+    txtRead.read()
+
+
+mensaje = "a\nb\nc\nd\nalmendra\ncoliflor\ngirasol rojo"
+mensajePadre = """a
+b
+c
+d
+almendra
+coliflor
+girasol rojo"""
+
+# Creamos el mensaje que el padre enviará al hijo.
+
 
 def main():
     # Creamos un par de descriptores de archivo utilizando os.pipe().
@@ -23,13 +38,10 @@ def main():
 
         buffer = os.read(fd[0], 80).decode("utf-8")
         os.close(fd[0])
-        filas = 0
+        filas = len(buffer.split("\n"))
         palabras = 0
         # nos llega una cadena con cada fila separada por \n, con lo cual revisamos cada "fila" haciendo un split por \n
         for row in buffer.split("\n"):
-            # cada iteracion añade una fila
-            filas += 1
-            # cada row le hacemos un split segun los espacios en blanco y sumamos su longitud a palabras
             palabras += len(row.split())
 
         # HECHO CON JSON
