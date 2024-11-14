@@ -32,14 +32,10 @@ def main():
             # cada row le hacemos un split segun los espacios en blanco y sumamos su longitud a palabras
             palabras += len(row.split())
 
-        # quizá hacerlo con un formato de json es mas sencillo, hacer un json.dumps de un diccionario de python y pasarlo como string pero como no se si es posible
-        # ya que no tengo un so linux y comprobarlo se me hace dificil, lo hago asi y en el padre compruebo mediante split
-
         # HECHO CON JSON
-        # diccionarioHijo = {"filas": filas, "palabras": palabras}
-        # mensajeHijo = json.dumps(diccionarioHijo)
+        diccionarioHijo = {"filas": filas, "palabras": palabras}
+        mensajeHijo = json.dumps(diccionarioHijo)
 
-        mensajeHijo = f"filas: {filas},palabras: {palabras}"
         os.write(fd[1], mensajeHijo.encode("utf-8"))  # Enviamos el texto
         # Imprimimos el mensaje recibido.
         print(f"El hijo recibe algo del pipe:\n{buffer}")
@@ -79,14 +75,11 @@ girasol rojo"""
         # Esperamos a que el proceso hijo termine.
         os.wait()
         buffer = os.read(fd[0], 80).decode("utf-8")
-        #dividimos los datos, como sabemos el formato del string que llega es mas sencillo
-        numFilas = int(buffer.split("filas:")[1].split(",")[0].strip())
-        numPalabras = int(buffer.split("palabras:")[1].strip())
 
         #SI LO QUE LLEGA FUESE EL JSON
-        # jsonLlega = json.loads(buffer)
-        # numFilas = jsonLlega["filas"]
-        # numPalabras = jsonLlega["palabras"]
+        jsonLlega = json.loads(buffer)
+        numFilas = jsonLlega["filas"]
+        numPalabras = jsonLlega["palabras"]
 
         os.close(fd[0])
         print(f"Al padre le llega un mensaje del hijo:\nNumero de filas:{numFilas}\nNumero de palabras:{numPalabras} ")
