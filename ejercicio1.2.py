@@ -15,6 +15,8 @@ for proc in psutil.process_iter(["name", "pid", "memory_percent"]):
             procKilled = True
         except psutil.AccessDenied:
             print("No tienes permisos parar cerrar este proceso")
+        except psutil.NoSuchProcess:
+            print("El proceso ya no existe")
         except psutil.Error as e:
             print(f"Error desconocido {e}")
 

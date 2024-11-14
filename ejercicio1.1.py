@@ -2,12 +2,15 @@ import psutil
 
 
 listaProcesos = []
-procesosInput = input("Introduce nombres de procesos separados por una ,\n")
+procesosInput = ""
+while procesosInput != "0":
+    procesosInput = input(
+        "Introduce el nombre del proceso, introduce 0 cuando quieras parar de introducir nombres procesos\n"
+    )
+    if procesosInput != "0":
+        listaProcesos.append(procesosInput)
 
-for proceso in procesosInput.split(","):
-    listaProcesos.append(proceso.strip())
-
-if len(listaProcesos) == 1 and listaProcesos[0] == "":
+if len(listaProcesos) == 0:
     print("No has incluido ningun nombre en la lista")
     quit()
 
@@ -17,7 +20,7 @@ for proceso in listaProcesos:
     for proc in psutil.process_iter(["name", "pid", "memory_percent"]):
         # para que fuese mas preciso se tendría que poner == pero el nombre del proceso en la lista tendria que ser identico
         try:
-            if proceso in proc.info["name"]:
+            if proceso.lower() in proc.info["name"].lower():
                 print(
                     f"El proceso {proc.info["name"]} se está ejecutando con pid {proc.info["pid"]} y realizando un uso de memoria de {proc.info["memory_percent"]}"
                 )
